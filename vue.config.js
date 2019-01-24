@@ -1,3 +1,5 @@
 module.exports = {
-  lintOnSave: false
+  lintOnSave: false,
+  css: { extract: false },
+  productionSourceMap: false,
 }

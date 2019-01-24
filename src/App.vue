@@ -1,20 +1,28 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <PButton>Button</PButton>
+    <PButton type="primary" size="large">Button</PButton>
+    <PButton size="small" @click="handleClick">Button</PButton>
+    <PButton type="primary" disabled>Button</PButton>
+    <PButton type="link">Button</PButton>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import { PButton } from './components/button';
 
 @Component({
   components: {
-    HelloWorld,
+    PButton,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  handleClick() {
+    console.log('button clicked')
+  }
+}
 </script>
 
 <style>
