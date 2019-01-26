@@ -6,11 +6,10 @@ export {
 }
 
 export default {
-  install: (vue: typeof Vue, options?: object) => {
+  install(vue: typeof Vue, options?: object) {
+    if ((this as any).installed) {
+      return;
+    }
     vue.component('PButton', PButton);
   }
 }
-
-
-
-

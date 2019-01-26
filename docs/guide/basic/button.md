@@ -13,7 +13,7 @@ export default {
 ```
 
 <script>
-  import { PButton } from '../../../src/index'
+  import { PButton } from '$paper-ui/index'
   export default {
     name: 'app',
     components: {

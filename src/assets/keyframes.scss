@@ -1,0 +1,16 @@
+
+
+@keyframes shake {
+  $interval: 100%/8;
+  @for $i from 0 through 8 {
+    #{$i * $interval} {
+      $distance: 4px * (1-$i/8);
+      @if $i % 2 == 0 {
+        transform: translateX(-$distance);
+      }
+      @else {
+        transform: translateX($distance);
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
   title: 'Paper UI',
   description: 'Just playing around',
@@ -30,9 +31,12 @@ module.exports = {
     ]
   },
   chainWebpack: (config, isServer) => {
-    config.resolve.extensions
-      .add('.ts')
-      .end()
+    config.resolve
+      .extensions
+        .add('.ts')
+        .end()
+      .alias
+      .set('$paper-ui', path.resolve(__dirname, '../../src'))
 
     config.module
       .rule('ts')

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PButton.vue disabled big button 1`] = `
+<button disabled="disabled" class="p-btn large">
+  <!----> </button>
+`;
+
+exports[`PButton.vue primary button 1`] = `
+<button class="p-btn middle primary">
+  <!----> </button>
+`;
+
+exports[`PButton.vue small button 1`] = `
+<button class="p-btn small">
+  <!----> </button>
+`;

@@ -45,6 +45,7 @@ export default class PButton extends Vue {
 </script>
 
 <style lang="scss">
+@import"../../assets/keyframes.scss";
 // TODO: button active state style
 @function scaleStyle($base, $factor) {
   @if length($base) == 1 {
@@ -112,21 +113,6 @@ export default class PButton extends Vue {
     }
     &:hover {
       font-weight: 500;
-    }
-  }
-}
-
-@keyframes shake {
-  $interval: 100%/8;
-  @for $i from 0 through 8 {
-    #{$i * $interval} {
-      $distance: 4px * (1-$i/8);
-      @if $i % 2 == 0 {
-        transform: translateX(-$distance);
-      }
-      @else {
-        transform: translateX($distance);
-      }
     }
   }
 }
