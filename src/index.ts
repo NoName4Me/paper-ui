@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 export {
   PButton,
-}
+};
 
 export default {
   install(vue: typeof Vue, options?: object) {
@@ -11,5 +11,5 @@ export default {
       return;
     }
     vue.component('PButton', PButton);
-  }
-}
+  },
+};

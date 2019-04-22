@@ -1,0 +1,26 @@
+@mixin slideFade($direction: "left", $from: 100%, $duration: 0.5s) {
+  .slide-fade-#{$direction}-enter-active {
+    transition: all $duration ease;
+  }
+  .slide-fade-#{$direction}-leave-active {
+    transition: all $duration ease;
+  }
+  .slide-fade-#{$direction}-enter,
+  .slide-fade-#{$direction}-leave-to {
+    @if ($direction == "right") {
+      transform: translateX($from);
+    } @else if($direction == "left") {
+      transform: translateX(-$from);
+    } @else if($direction == "top") {
+      transform: translateY(-$from);
+    } @else {
+      transform: translateY($from);
+    }
+    opacity: 0;
+  }
+}
+
+@include slideFade();
+@include slideFade("right");
+@include slideFade("top");
+@include slideFade("bottom");

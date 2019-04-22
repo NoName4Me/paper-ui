@@ -10,14 +10,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit } from "vue-property-decorator";
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator';
 
 @Component
 export default class PButton extends Vue {
   // `props`
-  @Prop({ default: "" }) private type!: string;
-  @Prop({ default: "middle" }) private size!: string;
-  @Prop({ default: "" }) private icon!: string;
+  @Prop({ default: '' }) private type!: string;
+  @Prop({ default: 'middle' }) private size!: string;
+  @Prop({ default: '' }) private icon!: string;
   @Prop({ default: false }) private disabled!: boolean;
 
   // `computed`
@@ -30,13 +30,13 @@ export default class PButton extends Vue {
   // created() {}
 
   // `methods`, emit an event
-  handleClick(event: MouseEvent) {
+  public handleClick(event: MouseEvent) {
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
       return;
     }
-    this.$emit("click", event);
+    this.$emit('click', event);
   }
 
   // normal `methods`

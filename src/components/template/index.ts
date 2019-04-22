@@ -1,13 +1,9 @@
-import PButton from './PButton.vue';
+import PTemplate from './PTemplate.vue';
 import Vue from 'vue';
 
 
-const uiList = [
-  PButton,
-];
-
 export {
-  PButton,
+  PTemplate,
 };
 
 // Declare install function executed by Vue.use()
@@ -17,6 +13,6 @@ export default {
       return;
     }
     (this as any).installed = true;
-    Vue.component('PButton', PButton);
+    Vue.component('PTemplate', PTemplate);
   },
 };
