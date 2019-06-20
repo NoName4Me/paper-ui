@@ -1,4 +1,3 @@
-
 // base z-index
 $zIndexOfContent: 0;
 $zIndexOfNotice: 100;
@@ -7,14 +6,19 @@ $zIndexOfDialog: 1000;
 // font-size
 $fontSizeOfContent: 14px;
 
-
 // shadow
-$boxShadowOfContent: 0 0 4px rgba(0,0,0,.1);
-$boxShadowOfNotice: 2px 4px 16px rgba(0,0,0,.2);
-$boxShadowOfDialog: 4px 8px 16px 2px rgba(0,0,0,.4);
+$boxShadowOfContent: 0 0 4px rgba(0, 0, 0, 0.1);
+$boxShadowOfNotice: 2px 4px 16px rgba(0, 0, 0, 0.2);
+$boxShadowOfDialog: 4px 8px 16px 2px rgba(0, 0, 0, 0.4);
 
+// main color
+$colorMain: rgb(80, 80, 80);
+$colorSuccess: rgb(0, 200, 60);
+$colorInfo: rgb(0, 120, 255);
+$colorWarn: rgb(255, 200, 60);
+$colorError: rgb(255, 60, 0);
 
-// 
+//
 .content-layer {
   z-index: $zIndexOfContent;
 }

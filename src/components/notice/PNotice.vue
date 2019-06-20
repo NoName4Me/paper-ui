@@ -1,39 +1,47 @@
 <template>
-  <div class="notice-list-wraper" :class="[position]">
-    <transition v-for="content in typeof msg==='string'?[msg]:msg" :key="content" :name="transitionName">
-      <div v-if="show"
-           class="notice-wraper"
-           @mouseenter="clearTimer"
-           @mouseleave="startTimer">
-        <div class="msg">
-          <slot>{{msg}}</slot>
+  <div class="notice-list-wraper"
+       :class="[position]">
+    <div ref="noticeDom"
+         v-for="notice of noticeList"
+         :key="notice.id">
+      <transition :name="transitionName">
+        <div v-if="notice.show"
+             class="notice-wraper"
+             :class=[notice.type]
+             @mouseenter="clearTimer(notice.id)"
+             @mouseleave="startTimer(notice.id)">
+          <div class="msg">
+            <slot>{{notice.msg}}</slot>
+          </div>
+          <div class="extension">
+            <i v-if="notice.dismissible"
+               @click="handleClose(notice.id)"
+               class="close"></i>
+          </div>
         </div>
-        <div class="extension">
-          <!-- <Badge>TODO:</Badge> -->
-          <i v-if="dismissible"
-             @click="handleClose"
-             class="close"></i>
-        </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+export interface NoticeProp {
+  msg?: string;
+  duration?: number;
+  type?: string;
+  merge?: boolean;
+  dismissible?: boolean;
+  id: number;
+  show: boolean;
+}
+
 import { Vue, Component, Prop, Emit } from "vue-property-decorator";
 
 @Component
 export default class PNotice extends Vue {
-  // `props`
-  @Prop({ type: String, default: "" }) private type!: string;
-  @Prop({ type: String, default: "" }) private msg!: string;
-  @Prop({ type: Boolean, default: false }) private mask!: boolean; //
-  @Prop({ type: Boolean, default: false }) private dismissible!: boolean; // 可关闭
-  @Prop({ type: Number, default: 5 }) private duration!: number; // 错误/警告 10s，一般 5s
-  @Prop({ type: String, default: "top-right" }) private position!: string; // 位置
-  @Prop({ type: Boolean, default: true }) private merge!: boolean; // duration 内重复信息合并
+  @Prop() private noticeList: NoticeProp[];
+  @Prop({ type: String, default: "top-right" }) private position!: string; // 容器位置
 
-  // `computed`
   get transitionName(): string {
     if (this.position.includes("left")) {
       return "slide-fade-left";
@@ -44,34 +52,49 @@ export default class PNotice extends Vue {
     if (this.position.includes("top")) {
       return "slide-fade-top";
     }
-    // if(this.position.includes('botton')) {
     return "slide-fade-bottom";
-    // }
   }
 
-  // `data`
-  show: boolean = true;
+  timer = {};
+  show = true;
 
-  // hooks, like `created`
-  // created() {}
-
-  // `methods`, emit an event
-  // @Emit
-  handleClose() {
-    this.close();
+  mounted() {
+    this.startTimer(this.noticeList[0].id);
+  }
+  updated() {
+    this.noticeList.forEach(notice => {
+      if (this.timer[notice.id] === undefined) {
+        this.startTimer(notice.id);
+      }
+    });
   }
 
-  close() {
-    this.show = false;
-    // this.$el.remove();
+  handleClose(id: number) {
+    const idx = this.noticeList.findIndex(item => item.id === id);
+    if (idx < 0) return;
+    this.noticeList[idx].show = false;
   }
 
-  clearTimer() {}
+  clearTimer(id: number) {
+    clearTimeout(this.timer[id]);
+    delete this.timer[id];
+  }
 
-  startTimer() {}
+  startTimer(id: number) {
+    const idx = this.noticeList.findIndex(notice => notice.id === id);
+    if (idx < 0) return;
+    this.$refs.noticeDom[idx].addEventListener("transitionend", () => {
+      this.noticeList.splice(idx, 1);
+    });
 
-  // normal `methods`
-  // foo() {}
+    if (this.noticeList[idx].duration < 0) {
+      this.timer[id] = -1;
+    } else {
+      this.timer[id] = setTimeout(() => {
+        this.handleClose(id);
+      }, this.noticeList[idx].duration * 1000);
+    }
+  }
 }
 </script>
 
@@ -82,15 +105,16 @@ export default class PNotice extends Vue {
 
 .notice-list-wraper {
   position: fixed;
+  max-width: 30%;
+  min-width: 100px;
   @extend .notice-layer;
-  // pointer-events: none;
 
   $yMargin: 20px;
   $xMargin: 10px;
   &.top,
   &.bottom {
     left: 50%;
-    transition: translateX(-50%);
+    transform: translateX(-50%);
     .msg {
       text-align: center;
     }
@@ -125,21 +149,41 @@ export default class PNotice extends Vue {
     left: $xMargin;
   }
   .notice-wraper {
+    position: relative;
     z-index: $zIndexOfNotice;
     box-shadow: $boxShadowOfNotice;
     padding: $fontSizeOfContent;
     font-size: $fontSizeOfContent;
     line-height: 1.4;
-    min-width: 100px;
-    max-width: 40%;
     border: 1px solid #eee;
     background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px;
+    &:before {
+      content: "";
+      width: 4px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: $colorMain;
+    }
+    &.success:before {
+      background: $colorSuccess;
+    }
+    &.warn:before {
+      background: $colorWarn;
+    }
+    &.error:before {
+      background: $colorError;
+    }
+    &.info:before {
+      background: $colorInfo;
+    }
     &:hover {
-      opacity: 0.8;
+      opacity: 0.98;
     }
 
     .msg {

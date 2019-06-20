@@ -17,6 +17,6 @@ export default {
       return;
     }
     (this as any).installed = true;
-    Vue.component('PButton', PButton);
+    vue.component('PButton', PButton);
   },
 };

@@ -1,8 +1,10 @@
-import { PButton } from './components/button';
+import PButton from './components/button';
+import PNotice from './components/notice';
 import Vue from 'vue';
 
 export {
   PButton,
+  PNotice,
 };
 
 export default {
@@ -10,6 +12,7 @@ export default {
     if ((this as any).installed) {
       return;
     }
-    vue.component('PButton', PButton);
+    vue.use(PButton);
+    vue.use(PNotice)
   },
 };

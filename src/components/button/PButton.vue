@@ -10,24 +10,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit } from 'vue-property-decorator';
+import { Vue, Component, Prop, Emit } from "vue-property-decorator";
 
 @Component
 export default class PButton extends Vue {
-  // `props`
-  @Prop({ default: '' }) private type!: string;
-  @Prop({ default: 'middle' }) private size!: string;
-  @Prop({ default: '' }) private icon!: string;
+  @Prop({ default: "" }) private type!: string;
+  @Prop({ default: "middle" }) private size!: string;
+  @Prop({ default: "" }) private icon!: string;
   @Prop({ default: false }) private disabled!: boolean;
-
-  // `computed`
-  // get fooo(): string { }
-
-  // `data`
-  // foo = this.bar;
-
-  // hooks, like `created`
-  // created() {}
 
   // `methods`, emit an event
   public handleClick(event: MouseEvent) {
@@ -36,16 +26,14 @@ export default class PButton extends Vue {
       event.stopPropagation();
       return;
     }
-    this.$emit('click', event);
+    this.$emit("click", event);
   }
-
-  // normal `methods`
-  // foo() {}
 }
 </script>
 
 <style lang="scss">
-@import"../../assets/keyframes.scss";
+@import "../../assets/keyframes.scss";
+@import "../../assets/basics.scss";
 // TODO: button active state style
 @function scaleStyle($base, $factor) {
   @if length($base) == 1 {
@@ -60,35 +48,45 @@ export default class PButton extends Vue {
   $root: &;
   $baseFontSize: 12px;
   $padding: 8px 16px;
-
+  
+  padding: $padding;
+  transition: all 0.2s ease;
+  cursor: default;
+  box-sizing: border-box;
+  font-size: $baseFontSize;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   // reset default
   &:active,
   &:hover,
   &:focus {
     outline: none;
   }
-  padding: $padding;
-  
-  transition: all 0.2s ease;
-  cursor: default;
-  box-sizing: border-box;
-  font-size: $baseFontSize;
-  border: 1px solid #eee;
   &:active {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
   }
   &.small {
     padding: scaleStyle($padding, 2);
   }
-  &.middle {
-  }
   &.large {
     padding: scaleStyle($padding, 0.8);
     font-size: scaleStyle($baseFontSize, 0.8);
   }
   &.primary {
-    border: 1px solid #aaa;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid $colorMain;
+    //
+  }
+  &.info {
+    border: 1px solid $colorInfo;
+  }
+  &.success {
+    border: 1px solid $colorSuccess;
+  }
+  &.error {
+    border: 1px solid $colorError;
+  }
+  &.warn {
+    border: 1px solid $colorWarn;
   }
 
   &:hover:not(:disabled) {
@@ -100,7 +98,7 @@ export default class PButton extends Vue {
     background-color: #efefef;
     box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.2);
     &:hover {
-      animation: shake .4s;
+      animation: shake 0.4s;
     }
   }
   &.link {

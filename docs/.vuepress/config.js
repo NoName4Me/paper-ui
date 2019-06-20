@@ -15,7 +15,7 @@ module.exports = {
           {
             title: '基础组件',
             children: [
-              'basic/',
+              'basic/notice',
               'basic/button',
             ]
           },
