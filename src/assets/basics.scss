@@ -1,3 +1,6 @@
+// reset
+@import "./reset.scss";
+
 // base z-index
 $zIndexOfContent: 0;
 $zIndexOfNotice: 100;
@@ -17,16 +20,30 @@ $colorSuccess: rgb(0, 200, 60);
 $colorInfo: rgb(0, 120, 255);
 $colorWarn: rgb(255, 200, 60);
 $colorError: rgb(255, 60, 0);
+$colorSecondMain: rgb(160,160,160);
+$colorHint: rgb(200,200,200);
 
-//
+// font size
+$fsTopHeader: 20px;
+$fsSecondHeader: 18px;
+$fsThirdHeader: 16px;
+$fsMain: 14px;
+$fsHint: 12px;
+
 .content-layer {
   z-index: $zIndexOfContent;
 }
 
 .notice-layer {
   z-index: $zIndexOfNotice;
+  box-shadow: $boxShadowOfNotice;
 }
 
 .dialog-layer {
   z-index: $zIndexOfDialog;
+}
+
+.paper-hint {
+  color: $colorHint;
+  font-size: 12px;
 }

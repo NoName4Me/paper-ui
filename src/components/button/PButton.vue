@@ -34,7 +34,7 @@ export default class PButton extends Vue {
 <style lang="scss">
 @import "../../assets/keyframes.scss";
 @import "../../assets/basics.scss";
-// TODO: button active state style
+
 @function scaleStyle($base, $factor) {
   @if length($base) == 1 {
     @return $base / $factor;
@@ -48,7 +48,7 @@ export default class PButton extends Vue {
   $root: &;
   $baseFontSize: 12px;
   $padding: 8px 16px;
-  
+
   padding: $padding;
   transition: all 0.2s ease;
   cursor: default;
@@ -104,6 +104,7 @@ export default class PButton extends Vue {
   &.link {
     border: none;
     text-decoration: underline;
+    box-shadow: none;
     &:hover,
     &:active {
       border: none;

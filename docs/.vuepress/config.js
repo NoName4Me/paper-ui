@@ -17,6 +17,7 @@ module.exports = {
             children: [
               'basic/notice',
               'basic/button',
+              'basic/input',
             ]
           },
           {
@@ -31,12 +32,11 @@ module.exports = {
     ]
   },
   chainWebpack: (config, isServer) => {
-    config.resolve
-      .extensions
-        .add('.ts')
-        .end()
-      .alias
-      .set('$paper-ui', path.resolve(__dirname, '../../src'))
+    config.resolve.extensions
+      .add('.ts')
+      .end()
+      .alias.set('$paper-ui', path.resolve(__dirname, '../../src'))
+      .set('@', path.resolve(__dirname, '../../src'));
 
     config.module
       .rule('ts')

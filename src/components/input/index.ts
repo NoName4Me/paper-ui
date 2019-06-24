@@ -1,9 +1,9 @@
-import PTemplate from './PTemplate.vue';
+import PInput from './PInput.vue';
 import Vue from 'vue';
 
 
 export {
-  PTemplate,
+  PInput,
 };
 
 // Declare install function executed by Vue.use()
@@ -12,7 +12,8 @@ export default {
     if ((this as any).installed) {
       return;
     }
+    
     (this as any).installed = true;
-    vue.component('PTemplate', PTemplate);
+    vue.component('PInput', PInput);
   },
 };

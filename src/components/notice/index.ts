@@ -18,6 +18,10 @@ export default {
     (this as any).installed = true;
 
     vue.prototype.$notify = (options: any) => {
+      if (typeof options === 'string') {
+        options = { msg: options }
+      }
+      
       switch (options.position) {
         case 'left-top':
         case 'top-left':

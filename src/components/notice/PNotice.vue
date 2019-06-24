@@ -27,7 +27,7 @@
 <script lang="ts">
 export interface NoticeProp {
   msg?: string;
-  duration?: number;
+  duration: number;
   type?: string;
   merge?: boolean;
   dismissible?: boolean;
@@ -39,7 +39,7 @@ import { Vue, Component, Prop, Emit } from "vue-property-decorator";
 
 @Component
 export default class PNotice extends Vue {
-  @Prop() private noticeList: NoticeProp[];
+  @Prop() private noticeList!: NoticeProp[];
   @Prop({ type: String, default: "top-right" }) private position!: string; // 容器位置
 
   get transitionName(): string {
@@ -55,12 +55,13 @@ export default class PNotice extends Vue {
     return "slide-fade-bottom";
   }
 
-  timer = {};
+  timer = {} as {[key:number]:any};
   show = true;
 
   mounted() {
     this.startTimer(this.noticeList[0].id);
   }
+
   updated() {
     this.noticeList.forEach(notice => {
       if (this.timer[notice.id] === undefined) {
@@ -83,7 +84,7 @@ export default class PNotice extends Vue {
   startTimer(id: number) {
     const idx = this.noticeList.findIndex(notice => notice.id === id);
     if (idx < 0) return;
-    this.$refs.noticeDom[idx].addEventListener("transitionend", () => {
+    (<any>this.$refs.noticeDom)[idx].addEventListener("transitionend", () => {
       this.noticeList.splice(idx, 1);
     });
 
@@ -106,8 +107,8 @@ export default class PNotice extends Vue {
 .notice-list-wraper {
   position: fixed;
   max-width: 30%;
-  min-width: 100px;
-  @extend .notice-layer;
+  min-width: 240px;
+  z-index: $zIndexOfNotice;
 
   $yMargin: 20px;
   $xMargin: 10px;
@@ -150,7 +151,6 @@ export default class PNotice extends Vue {
   }
   .notice-wraper {
     position: relative;
-    z-index: $zIndexOfNotice;
     box-shadow: $boxShadowOfNotice;
     padding: $fontSizeOfContent;
     font-size: $fontSizeOfContent;
