@@ -1,0 +1,17 @@
+language:
+  node_js
+node_js:
+  - "8"
+install:
+  - npm install -g yarn
+script:
+  - yarn
+  - yarn docs:build
+after_script:
+  - git clone git@github.com:NoName4Me/noname4me.github.io.git
+  - cd noname4me.github.io
+  - mkdir -p solutions/paper-ui
+  - cp -P ../dist/ solutions/paper-ui/
+  - git add .
+  - git commit -m "update Paper UI"
+  - git push
