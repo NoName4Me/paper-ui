@@ -1,5 +1,7 @@
 # paper-ui
 
+Guides goes [here](https://noname4me.github.io/solutions/paper-ui/guide/), have fun~
+
 ## Project setup
 ```
 yarn install

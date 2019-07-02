@@ -11,7 +11,7 @@
     },
     methods: {
       handleNotify(position, options) {
-        this.$notify({ position, msg: `This is test notification message. 这是一个测试通知消息。${this.cnt ++}`, ...options})
+        this.$notify({ position, msg: `${this.cnt ++}: This is test notification message. 这是一个测试通知消息。`, ...options})
       }
     }
   }

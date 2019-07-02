@@ -1,5 +1,6 @@
 const path = require('path');
 module.exports = {
+  base: process.env.NODE_ENV === 'production' ? '/solutions/paper-ui/' : '/',
   title: 'Paper UI',
   description: 'Just playing around',
   markdown: {
@@ -10,25 +11,20 @@ module.exports = {
     lastUpdated: true,
     // sidebar: 'auto',
     sidebar: {
-      '/guide/':
-        [
-          {
-            title: '基础组件',
-            children: [
-              'basic/notice',
-              'basic/button',
-              'basic/input',
-            ]
-          },
-          {
-            title: '高级'
-          }
-        ]
+      '/guide/': [
+        {
+          title: '基础组件',
+          children: ['basic/notice', 'basic/button', 'basic/input']
+        },
+        {
+          title: '高级'
+        }
+      ]
     },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
-      { text: 'External', link: 'https://google.com' },
+      { text: 'External', link: 'https://google.com' }
     ]
   },
   chainWebpack: (config, isServer) => {
@@ -48,11 +44,9 @@ module.exports = {
       .loader('ts-loader')
       .options({
         transpileOnly: true,
-        appendTsSuffixTo: [
-          '\\.vue$'
-        ],
+        appendTsSuffixTo: ['\\.vue$'],
         happyPackMode: false
       })
-      .end()
-  },
-}
+      .end();
+  }
+};

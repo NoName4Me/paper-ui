@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "NODE_ENV=production vuepress build docs"
   },
   "types": "types/index.d.ts",
   "main": "dist/vue-paper-ui.umd.js",
